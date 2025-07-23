@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Formulário de Produto{% endblock %}
+
+{% block content %}
+    <h1>Formulário de Produto</h1>
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="id_name" class="form-label">Nome</label>
+            {{ form.name }}
+        </div>
+        <div class="mb-3">
+            <label for="id_sku" class="form-label">SKU</label>
+            {{ form.sku }}
+        </div>
+        <div class="mb-3">
+            <label for="id_description" class="form-label">Descrição</label>
+            {{ form.description }}
+        </div>
+        <div class="mb-3">
+            <label for="id_quantity" class="form-label">Quantidade</label>
+            {{ form.quantity }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="{% url 'product-list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}
