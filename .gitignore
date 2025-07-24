@@ -1,0 +1,52 @@
+# Arquivos de Segredos (NUNCA ENVIE PARA O GITHUB)
+.env
+
+# Ambiente Virtual
+venv/
+.venv/
+env/
+.env.*
+!.env.example
+
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Arquivos Estáticos e de Mídia
+/media/
+/staticfiles/
+
+# Arquivos de IDEs e Editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos de Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos de dependências do Python
+pip-wheel-metadata/
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg

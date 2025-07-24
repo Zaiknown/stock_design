@@ -3,51 +3,44 @@
 
 {% block title %}Créditos - Matheus Zaino{% endblock %}
 
-{% block extra_head %}
-  <link rel="stylesheet" href="{% static 'css/credits.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-{% endblock %}
-
 {% block content %}
-<div class="credits-body">
-    <div class="credits-card">
-        <div class="profile-pic">
-            <img src="{% static 'images/matheuszaino.jpg' %}" alt="Foto de Matheus Zaino">
-        </div>
-        
-        <h1 class="creator-name">Matheus Zaino Pinto Oliveira</h1>
-        <p class="creator-title">Desenvolvedor Web | Apaixonado por Python & Django</p>
-        
-        <p class="creator-bio">
-            Olá! Eu sou o criador deste sistema de controle de estoque.
-            Este projeto foi desenvolvido como parte do meu portfólio para demonstrar
-            minhas habilidades em desenvolvimento web full-stack.
-        </p>
+<div class="credits-card">
+    <div class="profile-pic">
+        <img src="{% static 'images/matheuszaino.jpg' %}" alt="Foto de Matheus Zaino">
+    </div>
+    
+    <h1 class="creator-name">Matheus Zaino Pinto Oliveira</h1>
+    <p class="creator-title">Desenvolvedor Web | Apaixonado por Python & Django</p>
+    
+    <p class="creator-bio">
+        Olá! Eu sou o criador deste sistema de controle de estoque.
+        Este projeto foi desenvolvido como parte do meu portfólio para demonstrar
+        minhas habilidades em desenvolvimento web full-stack.
+    </p>
 
-        <div class="education-section">
-            <h2 class="section-title">Formação Acadêmica</h2>
-            <div class="education-item">
-                <i class="fas fa-laptop-code education-icon"></i>
-                <div class="education-details">
-                    <h3>Técnico em Informática</h3>
-                    <p>Instituto Federal do Ceará (IFCE)</p>
-                    <p><em>Concluído em 2025</em></p>
-                </div>
-            </div>
-            <div class="education-item">
-                <i class="fas fa-graduation-cap education-icon"></i>
-                <div class="education-details">
-                    <h3>Análise e Desenvolvimento de Sistemas</h3>
-                    <p>Instituto Federal do Ceará (IFCE)</p>
-                    <p><em>Cursando</em></p>
-                </div>
+    <div class="education-section">
+        <h2 class="section-title">Formação Acadêmica</h2>
+        <div class="education-item">
+            <i class="fas fa-laptop-code education-icon"></i>
+            <div class="education-details">
+                <h3>Técnico em Informática</h3>
+                <p>Instituto Federal do Ceará (IFCE)</p>
+                <p><em>Concluído em 2025</em></p>
             </div>
         </div>
-        
-        <div class="social-links">
-            <a href="https://github.com/Zaiknown" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/matheus-zaino-94947234b/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <div class="education-item">
+            <i class="fas fa-graduation-cap education-icon"></i>
+            <div class="education-details">
+                <h3>Análise e Desenvolvimento de Sistemas</h3>
+                <p>Instituto Federal do Ceará (IFCE)</p>
+                <p><em>Cursando</em></p>
+            </div>
         </div>
+    </div>
+    
+    <div class="social-links">
+        <a href="https://github.com/Zaiknown" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/matheus-zaino-94947234b/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
     </div>
 </div>
 

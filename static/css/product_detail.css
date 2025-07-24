@@ -1,0 +1,79 @@
+/* static/css/product_detail.css */
+
+.detail-card {
+    background-color: var(--bg-card);
+    padding: 2.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-title h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.detail-title .sku {
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.detail-actions a {
+    margin-left: 0.5rem;
+}
+
+.detail-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* Divide em 2 colunas */
+    gap: 2rem;
+}
+
+.detail-meta {
+    background-color: var(--bg-main);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.meta-item {
+    margin-bottom: 1.5rem;
+}
+
+.meta-item h5 {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.meta-item p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.detail-description h3 {
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+/* Estiliza o conteúdo que vem do CKEditor */
+.description-content {
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+.description-content p { margin-bottom: 1rem; }
+.description-content strong { color: var(--text-main); }
+.description-content ul, .description-content ol { padding-left: 20px; }

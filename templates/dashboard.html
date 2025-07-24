@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Estoque{% endblock %}
+
+{% block content %}
+<h1 style="font-weight: 600; margin-bottom: 2rem;">Dashboard</h1>
+
+{% if total_products > 0 %}
+    <div class="dashboard-grid">
+        <div class="stat-card">
+            <h5>Produtos Únicos</h5>
+            <p>{{ total_products }}</p>
+        </div>
+        <div class="stat-card">
+            <h5>Total de Itens em Estoque</h5>
+            <p>{{ total_items_in_stock }}</p>
+        </div>
+    </div>
+
+    <div class="low-stock-card">
+        <h3 style="margin-bottom: 1rem;">Alerta de Estoque Baixo (5 ou menos)</h3>
+        {% if low_stock_products %}
+            <ul class="low-stock-list" style="list-style: none;">
+                {% for product in low_stock_products %}
+                    <li>
+                        <span>{{ product.name }} (SKU: {{ product.sku }})</span>
+                        <span class="low-stock-badge">{{ product.quantity }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="color: var(--text-secondary);">Nenhum produto com estoque baixo. Ótimo trabalho!</p>
+        {% endif %}
+    </div>
+
+{% else %}
+    <div class="alert alert-success" style="text-align: center; padding: 2rem;">
+        <h4>Seu estoque está vazio!</h4>
+        <p>Parece que você ainda não cadastrou nenhum produto.</p>
+        <hr style="margin: 1rem 0; border-color: var(--border-color);">
+        <a href="{% url 'product-add' %}" class="btn" style="margin-top: 1rem;">Adicionar Primeiro Produto</a>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    {% endblock %}

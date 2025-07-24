@@ -3,36 +3,32 @@
 {% block title %}Confirmar Deleção{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center mt-5">
-    <div class="col-md-8 col-lg-6">
-        <div class="card border-danger shadow-sm">
-            <div class="card-header bg-danger text-white">
-                <h3 class="mb-0">Atenção: Confirmação de Deleção</h3>
-            </div>
-            <div class="card-body">
-                <p class="card-text fs-5">
-                    Você tem certeza que deseja deletar permanentemente o produto:
-                </p>
-                
-                <div class="alert alert-warning text-center">
-                    <strong class="fs-4">"{{ product.name }}"</strong>
-                    <br>
-                    (SKU: {{ product.sku }})
-                </div>
-                
-                <p class="text-danger fw-bold">
-                    Esta ação não poderá ser desfeita.
-                </p>
-
-                <form method="POST" class="mt-4">
-                    {% csrf_token %}
-                    <div class="d-flex justify-content-end">
-                        <a href="{% url 'product-list' %}" class="btn btn-secondary me-2">Cancelar</a>
-                        <button type="submit" class="btn btn-danger">Sim, quero deletar</button>
-                    </div>
-                </form>
-            </div>
+<div style="display: flex; justify-content: center; align-items: center; padding-top: 3rem;">
+    <div class="delete-confirmation-card" style="max-width: 500px;">
+        
+        <h1><i class="fas fa-exclamation-triangle"></i> Atenção!</h1>
+        
+        <p style="color: var(--text-secondary); margin-top: 1rem;">
+            Você tem certeza que deseja deletar permanentemente o produto abaixo?
+        </p>
+        
+        <div class="product-info">
+            <strong>{{ product.name }}</strong>
+            <br>
+            <small>SKU: {{ product.sku }}</small>
         </div>
+        
+        <p style="font-weight: bold; color: var(--accent);">
+        </p>
+
+        <form method="POST" style="margin-top: 2rem;">
+            {% csrf_token %}
+            <div style="display: flex; justify-content: center; gap: 1rem;">
+                <a href="{% url 'product-list' %}" class="btn" style="background-color: #444;">Cancelar</a>
+                <button type="submit" class="btn">Sim, quero deletar</button>
+            </div>
+        </form>
+        
     </div>
 </div>
 {% endblock %}

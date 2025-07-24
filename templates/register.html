@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Crie sua Conta{% endblock %}
+
+{% block content %}
+<div class="form-card" style="max-width: 500px; margin: 2rem auto;">
+    <h1 style="text-align: center; margin-bottom: 2rem;">Crie sua Conta</h1>
+    <form method="POST" novalidate>
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+            <button type="submit" class="btn">Cadastrar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,32 +1,50 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Formulário de Produto{% endblock %}
 
 {% block content %}
-    <h1>Formulário de Produto</h1>
-    <hr>
+<div class="form-card">
+    <h1 style="text-align: center; margin-bottom: 2rem;">Formulário de Produto</h1>
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
 
-        <div class="mb-3">
-            <label for="id_name" class="form-label">Nome</label>
-            {{ form.name }}
-        </div>
-        <div class="mb-3">
-            <label for="id_sku" class="form-label">SKU</label>
-            {{ form.sku }}
-        </div>
-        <div class="mb-3">
-            <label for="id_description" class="form-label">Descrição</label>
-            {{ form.description }}
-        </div>
-        <div class="mb-3">
-            <label for="id_quantity" class="form-label">Quantidade</label>
-            {{ form.quantity }}
-        </div>
+        {% if form.instance.image %}
+            <div class="form-group text-center mb-3">
+                <label>Imagem Atual:</label><br>
+                <img src="{{ form.instance.image.url }}" alt="{{ form.instance.name }}" style="max-height: 150px; border-radius: 8px;">
+            </div>
+        {% endif %}
 
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="{% url 'product-list' %}" class="btn btn-secondary">Cancelar</a>
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div style="color: var(--accent); font-size: 0.9rem; margin-top: 5px;">
+                        {{ field.errors.as_text }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+            <a href="{% url 'product-list' %}" class="btn" style="background-color: #444;">Cancelar</a>
+            <button type="submit" class="btn">Salvar Produto</button>
+        </div>
     </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const invalidFields = document.querySelectorAll('.is-invalid');
+            invalidFields.forEach(field => {
+                field.classList.add('is-invalid');
+            });
+        });
+    </script>
 {% endblock %}

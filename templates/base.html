@@ -1,32 +1,90 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}Controle de Estoque{% endblock %}</title>
+    
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <title>{% block title %}Controle de Estoque{% endblock %}</title> 
-
-    {% block extra_head %}
-    {% endblock %}
+    {% block extra_head %}{% endblock %}
+    {{ form.media.css }}
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'product-list' %}">MeuEstoque</a>
+<nav class="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">MeuEstoque</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'product-list' %}">Ver Produtos</a>
+            </li>
+        </ul>
+        <div class="user-info">
+            {% if user.is_authenticated %}
+                <span>Olá, {{ user.username }}!</span>
+                <form action="{% url 'admin:logout' %}" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-link-nav">Sair</button>
+                </form>
+            {% else %}
+                <a href="{% url 'register' %}" class="btn-link-nav">Cadastre-se</a>
+                <a href="{% url 'login' %}" class="btn">Entrar</a>
+            {% endif %}
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <main class="container mt-4">
-        {% block content %}
-        {% endblock %}
-    </main>
+<main class="container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message|safe }}</div>
+        {% endfor %}
+    {% endif %}
 
-<footer class="text-center mt-5 text-muted">
-    <p>&copy; 2025 - Criado por <a href="{% url 'credits' %}">Matheus Zaino </a></p>
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="main-footer">
+    <p>&copy; 2025 - Criado por <a href="{% url 'credits' %}">Matheus Zaino</a></p>
 </footer>
-{% block extra_js %}{% endblock %} 
+
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+{{ form.media.js }}
+
+{% block extra_js %}
+{% endblock %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const allAlerts = document.querySelectorAll('.alert');
+
+        allAlerts.forEach(function(alert) {
+            const isUndoAlert = alert.classList.contains('undo-alert');
+            const timeout = isUndoAlert ? 3000 : 3000;
+
+            setTimeout(() => {
+                alert.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    alert.remove();
+                }, 500);
+                
+            }, timeout);
+        });
+        const formFields = document.querySelectorAll('.form-card form input, .form-card form textarea, .form-card form select');
+        formFields.forEach(field => {
+            if (field.type !== 'checkbox' && field.type !== 'radio' && field.type !== 'file') {
+                field.classList.add('form-control');
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

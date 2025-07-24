@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="detail-card">
+    <div class="detail-header">
+        <div class="detail-title">
+            <h1>{{ product.name }}</h1>
+            <p class="sku">SKU: {{ product.sku }}</p>
+        </div>
+        <div class="detail-actions">
+            <a href="{% url 'product-update' product.pk %}" class="btn" style="background-color: #007bff;" title="Editar"><i class="fas fa-edit"></i> Editar</a>
+            <a href="{% url 'product-delete' product.pk %}" class="btn" title="Deletar"><i class="fas fa-trash"></i> Deletar</a>
+        </div>
+    </div>
+
+    <div class="detail-info-grid">
+        <div class="detail-meta">
+            <div class="meta-item">
+                <h5>Estoque Atual</h5>
+                <p>{{ product.quantity }}</p>
+            </div>
+            </div>
+        <div class="detail-description">
+            <h3>Descrição</h3>
+            <div class="description-content">
+                {{ product.description|safe }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

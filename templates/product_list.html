@@ -1,39 +1,76 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Lista de Produtos{% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="page-header">
         <h1>Lista de Produtos</h1>
-        <a href="{% url 'product-add' %}" class="btn btn-primary">Adicionar Novo Produto</a>
+        <a href="{% url 'product-add' %}" class="btn">
+            <i class="fas fa-plus"></i> Adicionar Produto
+        </a>
     </div>
-    <hr>
+    
+    <div class="content-card">
+        <form method="GET" class="search-form">
+            <div class="input-group">
+                <input type="text" class="form-control" name="q" id="searchInput" placeholder="Pesquisar por nome ou SKU..." value="{{ request.GET.q }}">
+                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
 
-    <table class="table table-striped table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th>Nome</th>
-                <th>SKU</th>
-                <th>Estoque</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-                <tr>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.sku }}</td>
-                    <td>{{ product.quantity }}</td>
-                    <td>
-                        <a href="{% url 'product-update' product.pk %}" class="btn btn-sm btn-info">Editar</a>
-                        <a href="{% url 'product-delete' product.pk %}" class="btn btn-sm btn-danger">Deletar</a>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="4" class="text-center">Nenhum produto cadastrado ainda.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <div style="margin-top: 2rem;">
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th style="width: 80px;">Imagem</th>
+            <th>Nome</th>
+            <th>SKU</th>
+            <th style="text-align: center;">Estoque</th>
+            <th style="text-align: right;">Ações</th>
+        </tr>
+    </thead>
+<tbody id="productTableBody">
+    {% for product in products %}
+        <tr>
+            <td>
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-list-image">
+                {% else %}
+                    <span class="no-image-placeholder"><i class="fas fa-camera"></i></span>
+                {% endif %}
+            </td>
+            <td><a href="{% url 'product-detail' product.pk %}">{{ product.name }}</a></td>
+            <td>{{ product.sku }}</td>
+            <td style="text-align: center;">{{ product.quantity }}</td>
+            <td style="text-align: right;">
+                <a href="{% url 'product-update' product.pk %}" class="btn" style="background-color: #007bff;" title="Editar"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'product-delete' product.pk %}" class="btn" title="Deletar"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="5">
+                <div style="text-align: center; padding: 3rem;">
+                    <h4 style="color: var(--text-secondary);">Seu estoque está vazio!</h4>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem;">Que tal adicionar alguns produtos de demonstração para testar?</p>
+                    
+                    <form action="{% url 'product-generate-random' %}" method="POST" style="margin-top: 1.5rem;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            <i class="fas fa-magic"></i> Gerar Produtos Aleatórios
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/live_search.js' %}" defer></script>
 {% endblock %}
