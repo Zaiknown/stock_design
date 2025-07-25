@@ -1,16 +1,23 @@
-// static/js/live_search.js
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
     const tableBody = document.getElementById('productTableBody');
-    const originalRowsHTML = tableBody.innerHTML;
-
-    function debounce(func, delay = 300) { /* ... (função debounce continua igual) ... */ }
+    const originalRowsHTML = tableBody.querySelector('tr td[colspan="5"]') ? null : tableBody.innerHTML;
+    function debounce(func, delay = 300) {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
 
     const performSearch = (query) => {
-        if (query === '') {
+        if (query === '' && originalRowsHTML) {
             tableBody.innerHTML = originalRowsHTML;
             return;
         }
+        if (query === '') return;
 
         fetch(`/api/search-products/?q=${encodeURIComponent(query)}`)
             .then(response => response.json())
@@ -22,14 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         const detailUrl = `/product/${product.id}/`;
                         const updateUrl = `/edit/${product.id}/`;
                         const deleteUrl = `/delete/${product.id}/`;
-
-                        // Lógica para criar a tag da imagem ou o placeholder
-                        let imageHtml = '';
-                        if (product.image_url) {
-                            imageHtml = `<img src="${product.image_url}" alt="${product.name}" class="product-list-image">`;
-                        } else {
-                            imageHtml = `<span class="no-image-placeholder"><i class="fas fa-camera"></i></span>`;
-                        }
+                        let imageHtml = product.image_url
+                            ? `<img src="${product.image_url}" alt="${product.name}" class="product-list-image">`
+                            : `<span class="no-image-placeholder"><i class="fas fa-camera"></i></span>`;
 
                         const row = `
                             <tr>
@@ -48,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     const row = `
                         <tr>
-                            <td colspan="5" style="text-align: center; padding: 2rem;">Nenhum produto encontrado.</td>
+                            <td colspan="5" style="text-align: center; padding: 2rem;">Nenhum produto encontrado para sua busca.</td>
                         </tr>
                     `;
                     tableBody.innerHTML = row;

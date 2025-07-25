@@ -1,20 +1,15 @@
-// static/js/terminal_game.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const terminalContainer = document.getElementById('terminal-container');
     const output = document.getElementById('terminal-output');
     const input = document.getElementById('terminal-input');
     const closeButton = document.getElementById('close-terminal');
 
-    // --- NOVA ESTRUTURA DE COMANDOS ---
     const commands = {
         help: {
             description: 'Mostra esta ajuda com todos os comandos.',
             execute: (print) => {
                 let helpText = 'Comandos disponíveis:<br><br>';
-                // Alinha os comandos de forma organizada
                 for (const cmd in commands) {
-                    // Adiciona a descrição formatada
                     helpText += `[${cmd}] - ${commands[cmd].description}<br>`;
                 }
                 print(helpText);
@@ -62,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- LÓGICA DE EXECUÇÃO ATUALIZADA ---
     input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -72,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const command = commands[commandName];
                 if (command) {
-                    // Executa a função 'execute' do comando
                     command.execute(printToTerminal);
                 } else {
                     printToTerminal(`Comando não encontrado: ${commandName}. Digite 'help'.`);
@@ -81,8 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-    
-    // --- O RESTO DO CÓDIGO (LÓGICA DO KONAMI, FUNÇÕES AUXILIARES) CONTINUA IGUAL ---
     
     const konamiCodeSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
     let konamiIndex = 0;
